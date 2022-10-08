@@ -1,0 +1,35 @@
+[package]
+name = "hob"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+kdl = "4"
+thiserror = "1"
+miette = { version = "5", features = ["fancy"] }
+anyhow = "1"
+hob-utils = { path = "./hob-utils" }
+handlebars = "4"
+serde = { version = "*", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+reqwest = "0.11"
+futures = "0.3"
+ring = "0.16"
+hex = "0.4"
+tokio-tar = { path = "./tokio-tar" }
+async_zip = "*"
+async-compression = { version = "0.3", features= ["all-algorithms", "tokio"] }
+wax = "0.5"
+byteorder = "1"
+async-trait = "0.1"
+lazy_static = "1"
+libc = "0.2"
+num_cpus = "1.13"
+
+[workspace]
+members = ["", "hob-derive", "hob-utils", "tokio-tar"]
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1

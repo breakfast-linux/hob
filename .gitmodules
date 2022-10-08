@@ -1,0 +1,3 @@
+[submodule "tokio-tar"]
+	path = tokio-tar
+	url = https://github.com/vorot93/tokio-tar

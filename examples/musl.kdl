@@ -1,0 +1,42 @@
+recipe "musl" {
+    version "1.2.3"
+    revision 0
+
+    style "gnu-configure"
+
+    description "Musl C library"
+    home "http://www.musl-libc.org/"
+    maintainer "eater <=@eater.me>"
+    license "MIT"
+
+    options {
+        strip false
+    }
+
+    artifacts {
+        fetch {
+            url "http://www.musl-libc.org/releases/{{name}}-{{version}}.tar.gz"
+            sha256 "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4"
+        }
+    }
+
+    install {
+        dir "usr/lib"
+        link "usr/lib" "lib"
+
+        make-install
+
+        rm "lib"
+        dir "usr/bin"
+
+        link "../lib/libc.so" "usr/bin/ldd"
+        link "true" "usr/bin/ldconfig"
+    }
+
+    side "{{name}}-devel" {
+        description "{{description}} - development files"
+        depends "{{self-ref}}"
+
+        claim "usr/include" "usr/lib/*.o" "usr/lib/*.a"
+    }
+}
